@@ -1,4 +1,5 @@
-# define libraries
+import csv
+
 zodiac_list = ['Aries', 'Taurus', 'Gemini', 'Cancer', 'Leo', 'Virgo', 'Libra', 'Scorpio', 'Sagittarius', 'Capricorn',
                'Aquarius', 'Pisces']
 interests = {'Politics': 5, 'Food': 5, 'Crime': 5, 'Sports': 5, 'Work': 5, 'School': 5, 'Money': 5, 'Entertainment':
@@ -10,6 +11,29 @@ hobbies = {'Cuisine': 0, 'Film & Literature': 0, 'Games': 0, 'Tinkering': 0, 'Sc
 aspirations = {'Family': 0, 'Fortune': 0, 'Knowledge': 0, 'Pleasure': 0, 'Popularity': 0, 'Romance': 0}
 
 
+class Sim:
+    def __init__(self, name, zodiac, hobby, aspiration, person, interest):
+        self.name = name
+        self.zodiac = zodiac
+        self.hobby = hobby
+        self.aspiration = aspiration
+        self.personality = person
+        self.interests = interest
+    
+    def __repr__(self):
+        return "{name} is a {zodiac}. A good aspiration for {name} is {asp}, and a good hobby is {hobby}.".format(
+            name=self.name, zodiac=self.zodiac, asp=self.aspiration, hobby=self.hobby)
+    
+    def show_personality(self):
+        print(self.personality)
+        
+    def show_interests(self):
+        print(self.interests)
+        
+    def write_sim(self):
+    
+        
+        
 def input_zodiac():
     sim_zodiac = ''
     while sim_zodiac not in zodiac_list:
@@ -242,5 +266,10 @@ print("First, I need to know some things about your Sim.")
 zodiac_sign = input_zodiac()
 p_points = input_personality()
 i_points = input_interests()
-aspiration_chooser(zodiac_sign, p_points, i_points)
-hobby_chooser(p_points, i_points)
+asp = aspiration_chooser(zodiac_sign, p_points, i_points)
+oth = hobby_chooser(p_points, i_points)
+sim_name = input("Name your Sim so I can save them for you! ")
+new_sim = Sim(sim_name, zodiac_sign, oth, asp, p_points, i_points)
+print(new_sim)
+new_sim.show_personality()
+new_sim.show_interests()
