@@ -40,10 +40,15 @@ class Sim:
         self.list.append(self.aspiration)
         self.list.append(self.hobby)
         self.list.append(self.points)
-        with open('sim.csv', 'w', newline='') as file:
-            self.writer = csv.writer(file)
-            self.writer.writerow(self.header)
-            self.writer.writerow(self.list)
+        confirm = input("Would you like to save {name}'s data? [y/n] ".format(name=self.name))
+        if confirm == 'y':
+            with open('sim.csv', 'w', newline='') as file:
+                self.writer = csv.writer(file)
+                self.writer.writerow(self.header)
+                self.writer.writerow(self.list)
+            print("{name}'s data has been stored in sim.csv!".format(name=self.name))
+        else:
+            print("Understood. {name} has not been saved.".format(name=self.name))
         
         
 def input_zodiac():
@@ -280,10 +285,9 @@ p_points = input_personality()
 i_points = input_interests()
 asp = aspiration_chooser(zodiac_sign, p_points, i_points)
 oth = hobby_chooser(p_points, i_points)
-sim_name = input("Name your Sim so I can save them for you! ")
+sim_name = input("Finally, please name your Sim: ")
 new_sim = Sim(sim_name, zodiac_sign, oth, asp, p_points, i_points)
 print(new_sim)
 new_sim.show_personality()
 new_sim.show_interests()
 new_sim.write_sim()
-print("{name}'s data has been stored in sim.csv!".format(name=sim_name))
