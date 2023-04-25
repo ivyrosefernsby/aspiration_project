@@ -13,12 +13,16 @@ aspirations = {'Family': 0, 'Fortune': 0, 'Knowledge': 0, 'Pleasure': 0, 'Popula
 
 class Sim:
     def __init__(self, name, zodiac, hobby, aspiration, person, interest):
+        self.writer = None
         self.name = name
         self.zodiac = zodiac
         self.hobby = hobby
         self.aspiration = aspiration
         self.personality = person
         self.interests = interest
+        self.points = list(person.values())
+        self.header = ['name', 'zodiac', 'aspiration', 'hobby', 'personality']
+        self.list = []
     
     def __repr__(self):
         return "{name} is a {zodiac}. A good aspiration for {name} is {asp}, and a good hobby is {hobby}.".format(
@@ -31,7 +35,15 @@ class Sim:
         print(self.interests)
         
     def write_sim(self):
-    
+        self.list.append(self.name)
+        self.list.append(self.zodiac)
+        self.list.append(self.aspiration)
+        self.list.append(self.hobby)
+        self.list.append(self.points)
+        with open('sim.csv', 'w', newline='') as file:
+            self.writer = csv.writer(file)
+            self.writer.writerow(self.header)
+            self.writer.writerow(self.list)
         
         
 def input_zodiac():
@@ -273,3 +285,4 @@ new_sim = Sim(sim_name, zodiac_sign, oth, asp, p_points, i_points)
 print(new_sim)
 new_sim.show_personality()
 new_sim.show_interests()
+new_sim.write_sim()
