@@ -21,7 +21,6 @@ class Sim:
         self.personality = person
         self.interests = interest
         self.points = list(person.values())
-        self.header = ['name', 'zodiac', 'aspiration', 'hobby', 'personality']
         self.list = []
     
     def __repr__(self):
@@ -42,9 +41,8 @@ class Sim:
         self.list.append(self.points)
         confirm = input("Would you like to save {name}'s data? [y/n] ".format(name=self.name))
         if confirm == 'y':
-            with open('sim.csv', 'w', newline='') as file:
+            with open('sim.csv', 'a', newline='') as file:
                 self.writer = csv.writer(file)
-                self.writer.writerow(self.header)
                 self.writer.writerow(self.list)
             print("{name}'s data has been stored in sim.csv!".format(name=self.name))
         else:
@@ -64,7 +62,7 @@ def input_zodiac():
     
 def input_personality():
     score = -1
-    print("Now I need to know your Sim's personality points. Please enter a number between 1 and 10 for each question.")
+    print("Now I need to know your Sim's personality points. Please enter a number from 0 to 10 for each question.")
     for key in personality:
         while (score < 0) or (score > 10):
             score = int(input("What is your Sim's {key} score? ".format(key=key)))
